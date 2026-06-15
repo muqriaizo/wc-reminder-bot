@@ -179,9 +179,13 @@ async def check_fixtures():
 
         # 2) Open a thread from that message
         thread_name = f"{m['t1']} VS {m['t2']}"
-        await msg.create_thread(
-            name   = thread_name,
-            auto_archive_duration = 1440   # auto-close thread after 24 hours
+        try:
+            await msg.create_thread(
+                name   = thread_name,
+                auto_archive_duration = 1440
+            )
+        except discord.Forbidden:
+            print(f"⚠️ No thread permission for {thread_name} — message sent only")   # auto-close thread after 24 hours
         )
 
         already_notified.add(mid)
