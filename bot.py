@@ -117,6 +117,24 @@ MATCHES = [
     {"id":"m47", "t1":"Panama",                "t2":"Croatia",             "grp":"L","venue":"Toronto",       "ko":t(6,24, 7, 0)},
     {"id":"m71", "t1":"England",               "t2":"Panama",              "grp":"L","venue":"New York/NJ",   "ko":t(6,28, 9, 0)},
     {"id":"m72", "t1":"Croatia",               "t2":"Ghana",               "grp":"L","venue":"Vancouver",     "ko":t(6,28, 9, 0)},
+
+    # ── ROUND OF 32 — confirmed matchups (added after group stage ended 27 Jun) ──
+    {"id":"k73", "t1":"South Africa",          "t2":"Canada",              "grp":"R32","venue":"Los Angeles",   "ko":t(6,29, 3, 0)},
+    {"id":"k76", "t1":"Brazil",                "t2":"Japan",               "grp":"R32","venue":"Houston",       "ko":t(6,30, 1, 0)},
+    {"id":"k74", "t1":"Germany",               "t2":"Paraguay",            "grp":"R32","venue":"Boston",        "ko":t(6,30, 4,30)},
+    {"id":"k75", "t1":"Netherlands",           "t2":"Morocco",             "grp":"R32","venue":"Monterrey",     "ko":t(6,30, 9, 0)},
+    {"id":"k78", "t1":"Ivory Coast",           "t2":"Norway",              "grp":"R32","venue":"Dallas",        "ko":t(7, 1, 1, 0)},
+    {"id":"k77", "t1":"France",                "t2":"Sweden",              "grp":"R32","venue":"New York/NJ",   "ko":t(7, 1, 5, 0)},
+    {"id":"k79", "t1":"Mexico",                "t2":"Ecuador",             "grp":"R32","venue":"Mexico City",   "ko":t(7, 1, 9, 0)},
+    {"id":"k80", "t1":"England",               "t2":"DR Congo",            "grp":"R32","venue":"Atlanta",       "ko":t(7, 2, 0, 0)},
+    {"id":"k82", "t1":"Belgium",               "t2":"Senegal",             "grp":"R32","venue":"Seattle",       "ko":t(7, 2, 4, 0)},
+    {"id":"k81", "t1":"USA",                   "t2":"Bosnia & Herzegovina","grp":"R32","venue":"San Francisco", "ko":t(7, 2, 8, 0)},
+    {"id":"k84", "t1":"Spain",                 "t2":"Austria",             "grp":"R32","venue":"Los Angeles",   "ko":t(7, 3, 3, 0)},
+    {"id":"k83", "t1":"Portugal",              "t2":"Croatia",             "grp":"R32","venue":"Toronto",       "ko":t(7, 3, 7, 0)},
+    {"id":"k85", "t1":"Switzerland",           "t2":"Algeria",             "grp":"R32","venue":"Vancouver",     "ko":t(7, 3,11, 0)},
+    {"id":"k88", "t1":"Australia",             "t2":"Egypt",               "grp":"R32","venue":"Dallas",        "ko":t(7, 4, 2, 0)},
+    {"id":"k86", "t1":"Argentina",             "t2":"Cape Verde",          "grp":"R32","venue":"Miami",         "ko":t(7, 4, 6, 0)},
+    {"id":"k87", "t1":"Colombia",              "t2":"Ghana",               "grp":"R32","venue":"Kansas City",   "ko":t(7, 4, 9,30)},
 ]
 
 # ──────────────────────────────────────────────
@@ -154,12 +172,13 @@ async def check_fixtures():
         mins = int(diff // 60)
         f1   = FLAGS.get(m["t1"], "")
         f2   = FLAGS.get(m["t2"], "")
+        stage_label = "Round of 32" if m["grp"] == "R32" else f"Group {m['grp']}"
 
         msg = await channel.send(
             f"@everyone\n"
             f"# ⚽  {f1} {m['t1']}  VS  {m['t2']} {f2}\n"
             f"🕐  Kickoff in **{mins} minutes** — {m['ko'].strftime('%H:%M')} MYT\n"
-            f"📍  {m['venue']}  ·  Group {m['grp']}"
+            f"📍  {m['venue']}  ·  {stage_label}"
         )
 
         # Open thread — safely handled if permission is missing
